@@ -56,8 +56,9 @@ if streamlit.button("Get Fruit Load List") :
   my_cnx_close()
   streamlit.dataframe(my_data_rows)
                     
+streamlit.header('Add a fruit!')
 try:
-  fruit_add = streamlit.text_input('What fruit would you like information about?')
+  fruit_add = streamlit.text_input('What fruit would you like to add?')
   if not fruit_add:
     streamlit.error("Please select a fruit to get information")
   else:
@@ -67,7 +68,7 @@ try:
       my_data_rows = get_fruit_load_list()
       streamlit.dataframe(my_data_rows)
     my_cnx_close()
-except URLError as e:
+except URLError as er:
   streamlit.error()
   
 streamlit.stop()
