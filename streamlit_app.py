@@ -61,10 +61,12 @@ try:
   if not fruit_choice:
     streamlit.error("Please select a fruit to get information")
   else:
-    streamlit.write(insert_row_snowflake(fruit_choice))
-    my_data_rows = get_fruit_load_list()
+    result = insert_row_snowflake(fruit_choice)
+    if not result:
+      streamlit.write(result)
+      my_data_rows = get_fruit_load_list()
+      streamlit.dataframe(my_data_rows)
     my_cnx_close()
-    streamlit.dataframe(my_data_rows)
 except URLError as e:
   streamlit.error()
   
