@@ -4,7 +4,6 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.stop()
 streamlit.title('My Mom\'s new healthy dinner')
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
@@ -41,6 +40,7 @@ except URLError as e:
   streamlit.error()
   
 
+streamlit.stop()
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
