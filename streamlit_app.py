@@ -58,10 +58,10 @@ if streamlit.button("Get Fruit Load List") :
                     
 try:
   fruit_add = streamlit.text_input('What fruit would you like information about?')
-  if not fruit_choice:
+  if not fruit_add:
     streamlit.error("Please select a fruit to get information")
   else:
-    result = insert_row_snowflake(fruit_choice)
+    result = insert_row_snowflake(fruit_add)
     if not result:
       streamlit.write(result)
       my_data_rows = get_fruit_load_list()
