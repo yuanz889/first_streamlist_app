@@ -4,6 +4,8 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+
 streamlit.title('My Mom\'s new healthy dinner')
 streamlit.header('Breakfast Menu')
 streamlit.text('🥣Omega 3 & Blueberry Oatmeal')
@@ -51,9 +53,9 @@ def insert_row_snowflake(new_fruit):
   
 streamlit.text("The fruit load list contains:")
 if streamlit.button("Get Fruit Load List") :
-  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   my_data_rows = get_fruit_load_list()
   streamlit.dataframe(my_data_rows)
+  my_cnx.close()
                     
 streamlit.header('Add a fruit!')
 try:
@@ -61,7 +63,8 @@ try:
   if not fruit_add:
     streamlit.error("Please select a fruit to get information")
   else:
-    result = insert_row_snowflake(fruit_add)
+    insert_row_snowflake(fruit_add)
+    my_cnx.close()
 except URLError as er:
   streamlit.error()
   
