@@ -61,7 +61,6 @@ try:
   if not fruit_choice:
     streamlit.error("Please select a fruit to get information")
   else:
-    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     streamlit.write(insert_row_snowflake(fruit_choice))
     my_data_rows = get_fruit_load_list()
     my_cnx_close()
